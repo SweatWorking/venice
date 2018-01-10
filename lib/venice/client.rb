@@ -45,7 +45,7 @@ module Venice
         # > The JSON representation of the receipt for the most recent renewal
         if latest_receipt_info_attributes = json['latest_receipt_info']
           # latest_receipt_info format is identical with in_app
-          receipt.latest_receipt_info = InAppReceipt.new(latest_receipt_info_attributes)
+          receipt.latest_receipt_info = latest_receipt_info_attributes
         end
 
         return receipt
