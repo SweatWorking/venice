@@ -33,9 +33,13 @@ module Venice
       @shared_secret = options[:shared_secret] if options[:shared_secret]
 
       json = json_response_from_verifying_data(data)
-      status, receipt_attributes = json['status'].to_i, json['receipt'].clone
-      receipt_attributes['original_json_response'] = json if receipt_attributes
-
+      status = json['status'].to_i
+      receipt_attributes = nil
+      if json['receipt']
+        receipt_attributes = json['receipt'].clone 
+        receipt_attributes['original_json_response'] = json
+      end
+      
       case status
       when 0, 21006
         receipt = Receipt.new(receipt_attributes)
